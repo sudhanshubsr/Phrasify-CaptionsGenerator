@@ -1,0 +1,102 @@
+.mainContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    align-items: center;
+    justify-content: center;
+}
+
+.rightContainer {
+    order: 1;
+    margin-top: 1em;
+}
+
+.rightContainer img {
+    width: 100%;
+    height: 100%;
+    max-width: 400px;
+    object-fit: cover;
+}
+
+.leftContainer {
+    order: 2;
+    margin-top: 1em;
+}
+
+.leftContainerHeading {
+    font-family: 'Poppins';
+    font-size: 1.5em;
+    line-height: var(--body-line-height);
+    font-weight: 800;
+}
+
+.uploadText{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+}
+.uploadButton {
+    background: var(--gradient-highlight-diagonal);
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: large;
+    color: white;
+    position: fixed;
+    bottom: 1em;
+    transition: transform 0.2s ease-in-out;
+
+    /* display: none; */
+}
+
+.uploadButton:hover {
+    background-color: var(--color-info-accent-hover);
+    cursor: pointer;
+}
+
+
+.uploadButton:active{
+    transform: scale(1);
+}
+
+.subSection1 {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    align-items: left;
+    padding: 0 3em;
+    gap: 1em;
+    margin-top: 2em;
+
+}
+
+.subSection2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2em;
+    width: 100%;
+}
+
+.subInfo {
+    font-family: 'Poppins';
+    background-color: var(--body-alt-background-color);
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    border-radius: 15px;
+    padding: 0.6em;
+    line-height: 1.7em;
+    color: var(--color-gray-700);
+    width: 50%;
+
+
+}

@@ -1,0 +1,4 @@
+.getStartedButton {
+    background: var(--gradient-highlight-diagonal);
+    font-size: 0.7em;
+}

@@ -1,0 +1,50 @@
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4em 1em;
+}
+
+.mainContainer h1{
+    font-size: var(--heading-font-size-l);
+    font-weight: var(--heading-font-weight);
+    color: var(--popover);
+    line-height: var(--heading-line-height);
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.gridContainer{
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(2,1fr);
+}
+
+.cardContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    margin: 1rem;
+    gap: 0.7em;
+
+}
+.cardHeading{
+    font-size: var(--heading-font-size-s);
+    font-weight: var(--heading-font-weight);
+    color: var(--accent-foreground);
+    line-height: var(--heading-line-height);
+    text-align: center;
+}
+.cardsubText{
+    font-size: var(--body-font-size-xs);
+    font-weight: var(--body-font-weight);
+    color: var(--popover);
+    line-height: var(--body-line-height);
+    text-align: center;
+
+}
+.imageContainer{
+    width: 150px;
+}

@@ -14,28 +14,57 @@ const FileEditingPage = ({params}) => {
   const [isFetchingInfo, setIsFetchingInfo] = useState(false);
   const [TranscriptionItems, setTranscriptionItems] = useState([]);
 
+  // useEffect(() => {
+  //   getTranscription();
+  // }, [filename]);
+
+  // function getTranscription() {
+  //   setIsFetchingInfo(true);
+  //   axios.get('/api/transcribe?filename='+filename).then(response => {
+  //     setIsFetchingInfo(false);
+  //     const status = response.data?.status;
+  //     const transcription = response.data?.transcription;
+  //     if (status === 'IN_PROGRESS') {
+  //       setIsTranscribing(true);
+  //       return new Promise((resolve)=>
+  //       setTimeout(() => {resolve(getTranscription())}, 5000)
+  //       )
+  //     } else {
+  //       setIsTranscribing(false);
+  //       setTranscriptionItems(
+  //         clearTranscriptionItems(transcription.results?.items)
+  //       );
+  //     }
+  //   });
+  // }
   useEffect(() => {
-    getTranscription();
+    const fetchData = async () => {
+      setIsFetchingInfo(true);
+      try {
+        const response = await axios.get('/api/transcribe?filename=' + filename);
+        const status = response.data?.status;
+        const transcription = response.data?.transcription;
+
+        if (status === 'IN_PROGRESS') {
+          setIsTranscribing(true);
+          setTimeout(fetchData, 5000); // Call the function directly
+        } else {
+          setIsTranscribing(false);
+          setTranscriptionItems(
+            clearTranscriptionItems(transcription.results?.items)
+          );
+          setIsFetchingInfo(false); // Added to handle completion state
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsFetchingInfo(false);
+        // Handle error, update state, or show an error message as needed
+      }
+    };
+
+    fetchData();
   }, [filename]);
 
-  function getTranscription() {
-    setIsFetchingInfo(true);
-    axios.get('/api/transcribe?filename='+filename).then(response => {
-      setIsFetchingInfo(false);
-      const status = response.data?.status;
-      const transcription = response.data?.transcription;
-      if (status === 'IN_PROGRESS') {
-        setIsTranscribing(true);
-        setTimeout(getTranscription, 3000);
-      } else {
-        setIsTranscribing(false);
-        setTranscriptionItems(
-          clearTranscriptionItems(transcription.results?.items)
-        );
-      }
-    });
-  }
-  console.log(TranscriptionItems)
 
   if (isTranscribing) {
     return (

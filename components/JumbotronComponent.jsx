@@ -1,4 +1,5 @@
 'use client'
+import SparklesIcon from '@/icons/sparklesIcon'
 import { UploadIcon } from '@radix-ui/react-icons'
 import styles from "@styles/jumbotron.module.css"
 import axios from 'axios'
@@ -9,6 +10,9 @@ const JumbotronComponent = () => {
     // const {edgestore} = useEdgeStore();
     const [progress, setProgress] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
+    const [newFileName, setNewFileName] = useState('');
+    const [buttonText, setButtonText] = useState('Upload Video');
+    const [isUploading, setIsUploading] = useState(true)
     const router = useRouter();
 
     const handleScroll = () => {
@@ -51,16 +55,34 @@ const JumbotronComponent = () => {
                     const percentCompleted = Math.floor((loaded * 100) / total);
                     (async () => {
                         setProgress(20);
-                        await wait(1500);
+                        await wait(500);
                         setProgress(percentCompleted);
                     })();
                 }
-            });
-            router.push(`${res.data.newName}`)
+            }
+                     
+            );
+            // router.push(`${res.data.newName}`)
+            if(res){
+                setNewFileName(res.data.newName);
+                setButtonText('Uploaded');
+                await wait(1500);
+                setProgress(0);
+                setIsUploading(false);
+                setButtonText('Transcribe Video');
+            }
         }
-        
-        
     }
+    
+    const handleTranscribeButton = async(e) => {
+        e.preventDefault();
+        await axios.post('/api/transcribe?filename='+newFileName).then((res)=>{
+            if(res.data.status === "IN_PROGRESS"){
+                router.push(`${newFileName}`)
+            }
+        })
+    }
+
 
 
   return (
@@ -80,25 +102,33 @@ const JumbotronComponent = () => {
                         animate='animate'
                         exit='exit'
                         variants={NavAnimation}
-                        className={styles.uploadButton} 
-
-                        >
+                        className={styles.uploadButton}
+                    >
+                        {isUploading && (
+                            <>
                             <div className={styles.uploadText}>
-                            <UploadIcon className='w-4 h-4'/>
-                            <span>Upload Video</span>
-                            </div>
-                            {progress > 0 && (
-                                <div className='h-[6px] w-32 border rounded overflow-hidden'>
+                            {isUploading ? <UploadIcon className='w-4 h-4' /> : <SparklesIcon className='h-7 w-7' />}
+                            <span>{buttonText}</span>
+                        </div>
+                        {progress > 0 && (
+                            <div className='h-[6px] w-32 border rounded overflow-hidden'>
                                 <div
-                                className='h-full bg-white transition-all duration-300 ease-in-out'
-                                style={{width: `${progress}%`}}
+                                    className='h-full bg-white transition-all duration-300 ease-in-out'
+                                    style={{ width: `${progress}%` }}
                                 ></div>
-                                 </div>
-                            )}
-                        
-                            <input type='file' className='hidden' multiple onChange={handleUpload}/>
-                        </motion.label>
-                ) : null}
+                            </div>
+                        )}
+                            </>
+                        )}
+                        {!isUploading && (
+                            <button onClick={handleTranscribeButton}>
+                                {buttonText}
+                            </button>
+                        )}
+                        <input type='file' className='hidden' onChange={handleUpload} />
+                    </motion.label>
+                    
+                ):null}
                 </AnimatePresence>
                     
         

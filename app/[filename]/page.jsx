@@ -7,6 +7,7 @@ import {useQuery} from '@tanstack/react-query'
 import CaptionsComponent from '@/components/CaptionsComponent'
 import SparklesIcon from '@/icons/sparklesIcon'
 import {clearTranscriptionItems} from '@/lib/helperfunctions'
+import { set } from 'zod'
 const FileEditingPage = ({params}) => {
 
   const filename = params.filename;
@@ -14,58 +15,29 @@ const FileEditingPage = ({params}) => {
   const [isFetchingInfo, setIsFetchingInfo] = useState(false);
   const [TranscriptionItems, setTranscriptionItems] = useState([]);
 
-  // useEffect(() => {
-  //   getTranscription();
-  // }, [filename]);
-
-  // function getTranscription() {
-  //   setIsFetchingInfo(true);
-  //   axios.get('/api/transcribe?filename='+filename).then(response => {
-  //     setIsFetchingInfo(false);
-  //     const status = response.data?.status;
-  //     const transcription = response.data?.transcription;
-  //     if (status === 'IN_PROGRESS') {
-  //       setIsTranscribing(true);
-  //       return new Promise((resolve)=>
-  //       setTimeout(() => {resolve(getTranscription())}, 5000)
-  //       )
-  //     } else {
-  //       setIsTranscribing(false);
-  //       setTranscriptionItems(
-  //         clearTranscriptionItems(transcription.results?.items)
-  //       );
-  //     }
-  //   });
-  // }
   useEffect(() => {
-    const fetchData = async () => {
-      setIsFetchingInfo(true);
-      try {
-        const response = await axios.get('/api/transcribe?filename=' + filename);
-        const status = response.data?.status;
-        const transcription = response.data?.transcription;
-
-        if (status === 'IN_PROGRESS') {
-          setIsTranscribing(true);
-          setTimeout(fetchData, 5000); // Call the function directly
-        } else {
-          setIsTranscribing(false);
-          setTranscriptionItems(
-            clearTranscriptionItems(transcription.results?.items)
-          );
-          setIsFetchingInfo(false); // Added to handle completion state
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setIsFetchingInfo(false);
-        // Handle error, update state, or show an error message as needed
-      }
-    };
-
-    fetchData();
+    getTranscription();
   }, [filename]);
 
+  async function getTranscription() {
+    setIsFetchingInfo(true);
+    await axios.get('/api/transcribe?filename='+filename).then(response => {
+      if(response.data.status === "NOT_FOUND"){
+        setTimeout(getTranscription, 1000);
+      }
+      else if(response.data.status === "IN_PROGRESS"){
+        setIsTranscribing(true);
+        setTimeout(getTranscription, 5000);
+      }
+      else{
+        setIsFetchingInfo(false);
+        setIsTranscribing(false);
+        setTranscriptionItems(clearTranscriptionItems(response.data.results.items));
+      }
+    });
+  }
 
+  
   if (isTranscribing) {
     return (
       <div>Transcribing your video...</div>

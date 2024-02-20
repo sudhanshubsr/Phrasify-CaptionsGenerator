@@ -74,8 +74,8 @@
     font-weight: 600;
     color: white;
     transition: all 0.3s ease;
-    width: min-content;
-    height: min-content;
+    width: max-content;
+    height: max-content;
     text-wrap: nowrap;
 
 }

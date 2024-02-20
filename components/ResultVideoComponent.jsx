@@ -9,7 +9,7 @@ const ResultVideoComponent = ({filename}) => {
     <div className={styles.buttonsDiv}>
     <button className={styles.captionGenerateButton}>
       <SparklesIcon className='h-7 w-7'/>
-      Generate Captions
+      Generate Caption
     </button>
   </div>
   </div>

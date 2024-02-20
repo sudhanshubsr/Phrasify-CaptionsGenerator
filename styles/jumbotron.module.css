@@ -31,14 +31,16 @@
     font-weight: 800;
 }
 
-.uploadText{
+.uploadText {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5em;
 }
+
 .uploadButton {
     background: var(--gradient-highlight-diagonal);
+    width: 200px;
     padding: 0.5em 1em;
     border-radius: 20px;
     display: flex;
@@ -47,9 +49,10 @@
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    font-weight: 500;
+    font-weight: 530;
     font-size: large;
     color: white;
+    font-family: 'Montserrat', sans-serif;
     position: fixed;
     bottom: 1em;
     transition: transform 0.2s ease-in-out;
@@ -57,13 +60,28 @@
     /* display: none; */
 }
 
+.transcribeButtonContainer {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    justify-content: center;
+    gap: 0.4em;
+}
+
+.transcribeButton {
+    margin: 0;
+    padding: 0;
+}
+
+
+
 .uploadButton:hover {
     background-color: var(--color-info-accent-hover);
     cursor: pointer;
 }
 
 
-.uploadButton:active{
+.uploadButton:active {
     transform: scale(1);
 }
 

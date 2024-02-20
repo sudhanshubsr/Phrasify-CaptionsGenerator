@@ -1,27 +1,31 @@
 'use client'
 import SparklesIcon from '@/icons/sparklesIcon'
-import { UploadIcon } from '@radix-ui/react-icons'
 import styles from "@styles/jumbotron.module.css"
 import axios from 'axios'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import PulseLoader from 'react-spinners/PulseLoader'
+import { FaUpload } from "react-icons/fa6";
+import { useEffect, useState, useContext} from 'react';
+import { useUploadButtonContext } from '@/lib/appContext'
+import { useSession } from 'next-auth/react'
+
 const JumbotronComponent = () => {
     // const {edgestore} = useEdgeStore();
-    const [progress, setProgress] = useState(0);
-    const [isScrolling, setIsScrolling] = useState(false);
-    const [newFileName, setNewFileName] = useState('');
-    const [buttonText, setButtonText] = useState('Upload Video');
-    const [isUploading, setIsUploading] = useState(true)
-    const router = useRouter();
 
-    const handleScroll = () => {
-        if(window.scrollY >= 100){
-            setIsScrolling(true)
-        }else{
-            setIsScrolling(false)
-        }
-    }
+    const router = useRouter();
+    const {data: session} = useSession();
+    const [isScrolling, setIsScrolling] = useState(false);
+    const {
+    buttonText, setButtonText,
+    progress, setProgress,
+    isUploading, setIsUploading,
+    transcribebuttonClicked, setTranscribeButtonClicked,
+    newFileName, setNewFileName
+    } = useUploadButtonContext();
+    const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+   
+    
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -30,7 +34,14 @@ const JumbotronComponent = () => {
         }
     }, [])
 
-    const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+    const handleScroll = () => {
+        if(window.scrollY >= 100){
+            setIsScrolling(true)
+        }else{
+            setIsScrolling(false)
+        }
+    }
+    
     const handleUpload = async (ev) => {
         ev.preventDefault();
         const file = ev.target.files[0];
@@ -59,12 +70,10 @@ const JumbotronComponent = () => {
                         setProgress(percentCompleted);
                     })();
                 }
-            }
-                     
-            );
-            // router.push(`${res.data.newName}`)
+            });
             if(res){
                 setNewFileName(res.data.newName);
+                setIsUploading(false)
                 setButtonText('Uploaded');
                 await wait(1500);
                 setProgress(0);
@@ -75,13 +84,24 @@ const JumbotronComponent = () => {
     }
     
     const handleTranscribeButton = async(e) => {
+        setTranscribeButtonClicked(true);
         e.preventDefault();
-        await axios.post('/api/transcribe?filename='+newFileName).then((res)=>{
-            if(res.data.status === "IN_PROGRESS"){
-                router.push(`${newFileName}`)
-            }
-        })
+        if(session){
+            await axios.post(`/api/transcribe?filename=${newFileName}`).then((res)=>{
+                if(res.data.status === "IN_PROGRESS"){
+                    router.push(`${newFileName}`)
+                }
+            })
+        }
+        else{
+            localStorage.setItem('newFileName', newFileName);
+            await axios.post(`/api/transcribe?filename=${newFileName}`)
+            router.push('/signin')
+        }
+        
     }
+
+
 
 
 
@@ -107,8 +127,10 @@ const JumbotronComponent = () => {
                         {isUploading && (
                             <>
                             <div className={styles.uploadText}>
-                            {isUploading ? <UploadIcon className='w-4 h-4' /> : <SparklesIcon className='h-7 w-7' />}
-                            <span>{buttonText}</span>
+                            <div>
+                               <FaUpload className='h-5 w-5' />
+                            </div>
+                            <div><span>{buttonText}</span></div>
                         </div>
                         {progress > 0 && (
                             <div className='h-[6px] w-32 border rounded overflow-hidden'>
@@ -121,9 +143,17 @@ const JumbotronComponent = () => {
                             </>
                         )}
                         {!isUploading && (
-                            <button onClick={handleTranscribeButton}>
-                                {buttonText}
-                            </button>
+                            <div className={styles.transcribeButtonContainer}>
+                            {!transcribebuttonClicked && <div>
+                                <SparklesIcon className='h-5 w-5' />
+                            </div>}
+                            <div className={styles.transcribeButton}>
+                                <button onClick={handleTranscribeButton}>
+                                    {transcribebuttonClicked ? <PulseLoader color='white' size={12} /> : 'Transcribe Video'}
+                                </button>
+                            </div>
+                            </div>
+                            
                         )}
                         <input type='file' className='hidden' onChange={handleUpload} />
                     </motion.label>

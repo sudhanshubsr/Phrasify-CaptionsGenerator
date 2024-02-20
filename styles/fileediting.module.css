@@ -13,18 +13,22 @@
     width: 100%;
     height: auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin-top: 2em;
 }
 
-.captionBox{
+.captionBox {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 500px;
+    padding: 0 2em 0em 2em;
 }
-.captionsContainer{
+
+.captionsContainer {
     color: black;
-    margin-top: 2em;
     margin-bottom: 1em;
     display: flex;
     align-items: center;
@@ -32,14 +36,30 @@
     height: 23em;
 }
 
-.buttonsDiv{
+.buttonsDiv {
     display: flex;
     flex-direction: column;
     /* justify-content: space-around; */
     height: 100%;
     padding: 1em;
 }
-.captionGenerateButton{
+
+.Loading {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1em;
+    font-weight: 550;
+    background: var(--gradient-highlight-vertical);
+}
+
+.captionGenerateButton {
     background: var(--color-info-primary);
     border: none;
     border-radius: 10px;
@@ -49,20 +69,21 @@
     align-items: center;
     gap: 0.5em;
     padding: 0.8em 1em;
-   font-size: small;
-   font-family: 'Montserrat', sans-serif;
-   font-weight: 600;
-   color: white;
+    font-size: small;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: white;
     transition: all 0.3s ease;
     width: min-content;
     height: min-content;
     text-wrap: nowrap;
 
-} 
+}
 
-.captionGenerateButton:active{
+.captionGenerateButton:active {
     transform: scale(0.95);
 }
+
 .videoContainer video {
     width: 55%;
     height: auto;

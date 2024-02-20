@@ -2,3 +2,17 @@
     background: var(--gradient-highlight-diagonal);
     font-size: 0.7em;
 }
+
+.uploadVideoButton {
+    background: var(--gradient-highlight-diagonal);
+    font-size: 0.7em;
+}
+
+.textContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    font-weight: 560;
+    font-size: 1em;
+}

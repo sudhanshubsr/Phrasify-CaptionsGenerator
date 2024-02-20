@@ -1,13 +1,42 @@
+'use client'
+
 import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import Link from "next/link"
+import {signIn} from 'next-auth/react'
 import styles from '@styles/signinpage.module.css'
-
+import { useEffect } from "react"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { useUploadButtonContext} from "@/lib/appContext"
 export default function SignInPage() {
+  const {data: session, status} = useSession();
+  const router = useRouter(); 
+
+  const {newFileName} = useUploadButtonContext();
+  
+  if(status === 'authenticated'){
+    router.push('/');
+  }
+
+  const handleSignInwithGithub = async () => {
+    if(newFileName){
+      await signIn('github', {
+        callbackUrl: `/${newFileName}`
+      })
+
+      localStorage.removeItem('newFileName');
+    }
+     else{
+      await signIn('github', {
+        callbackUrl: '/'
+      })
+     }
+  }
+
   return (
    <div className={styles.mainContainer}> 
     <Card className="mx-auto max-w-sm w-[500px] h-[460px]">
@@ -34,7 +63,11 @@ export default function SignInPage() {
            <FcGoogle className="w-5 h-5"/> 
            <p>Sign in with Google</p>
           </Button>
-          <Button className="w-full flex gap-2" variant="outline">
+          <Button 
+          className="w-full flex gap-2" variant="outline"
+          onClick={handleSignInwithGithub}
+          >
+          
            <FaGithub className="w-5 h-5"/> Sign in with GitHub
           </Button>
         </div>

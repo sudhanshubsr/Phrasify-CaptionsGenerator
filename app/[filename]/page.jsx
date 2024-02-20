@@ -1,13 +1,13 @@
 'use client'
 
-import styles from '@styles/fileediting.module.css'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import {useQuery} from '@tanstack/react-query'
 import CaptionsComponent from '@/components/CaptionsComponent'
-import SparklesIcon from '@/icons/sparklesIcon'
-import {clearTranscriptionItems} from '@/lib/helperfunctions'
-import { set } from 'zod'
+import { clearTranscriptionItems } from '@/lib/helperfunctions'
+import styles from '@styles/fileediting.module.css'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { PuffLoader, PulseLoader} from 'react-spinners'
+import ResultVideoComponent from '@/components/ResultVideoComponent'
+
 const FileEditingPage = ({params}) => {
 
   const filename = params.filename;
@@ -40,34 +40,40 @@ const FileEditingPage = ({params}) => {
   
   if (isTranscribing) {
     return (
-      <div>Transcribing your video...</div>
+      <div className={styles.Loading}>
+        <p>Transcribing your video</p>
+        <PulseLoader color="#ffff" />
+      </div>
     );
   }
 
   if (isFetchingInfo) {
     return (
-      <div>Fetching information...</div>
+      <div className={styles.Loading}>
+        <p>Fetching information</p>
+        <PulseLoader color="#fff" />
+      </div>
     );
   }
 
   return (
-    <div className={styles.mainContainer}>
-       <div className={styles.videoContainer}>
-        <video src={`https://phrasify-uploads.s3.ap-south-1.amazonaws.com/${filename}`} controls ></video>
-      </div>
+    <>
+    {!isFetchingInfo && !isTranscribing && TranscriptionItems.length > 0 ? (
+      <div className={styles.mainContainer}>
+      <ResultVideoComponent filename={filename} />
       <div className={styles.captionsContainer}>
-      <div className={styles.captionBox}>
-      <CaptionsComponent transcriptionItems={TranscriptionItems} setTranscriptionItems={setTranscriptionItems}/>
-      </div>
-      <div className={styles.buttonsDiv}>
-        <button className={styles.captionGenerateButton}>
-          <SparklesIcon className='h-7 w-7'/>
-          Generate Captions
-        </button>
-      </div>
+        <div className={styles.captionBox}>
+        <CaptionsComponent transcriptionItems={TranscriptionItems} setTranscriptionItems={setTranscriptionItems}/>
+        </div>
       </div>
     </div>
+  ):(
+    <div className={styles.Loading}>
+     <PuffLoader color="#ffff" />
+    </div>
+  )}
+    </>
   )
-}
+    }
 
 export default FileEditingPage

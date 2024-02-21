@@ -60,7 +60,7 @@ const FileEditingPage = ({params}) => {
     <>
     {!isFetchingInfo && !isTranscribing && TranscriptionItems.length > 0 ? (
       <div className={styles.mainContainer}>
-      <ResultVideoComponent filename={filename} />
+      <ResultVideoComponent filename={filename} transcriptionItems={TranscriptionItems} />
       <div className={styles.captionsContainer}>
         <div className={styles.captionBox}>
         <CaptionsComponent transcriptionItems={TranscriptionItems} setTranscriptionItems={setTranscriptionItems}/>

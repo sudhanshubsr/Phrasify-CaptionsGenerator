@@ -11,7 +11,6 @@ const NavbarComponent = () => {
     const [AvatarMenu, setAvatarMenu] = useState(false);
     const {data: session, status} = useSession();
 
-  console.log(status)
     const handleAvatarMenu = () => {
         setAvatarMenu(!AvatarMenu)
     }

@@ -36,15 +36,30 @@ export default function SignInPage() {
       })
      }
   }
+  const handleSignInwithGoogle = async () => {
+    if(newFileName){
+      await signIn('google', {
+        callbackUrl: `/${newFileName}`
+      })
+
+      localStorage.removeItem('newFileName');
+    }
+     else{
+      await signIn('google', {
+        callbackUrl: '/'
+      })
+     }
+  }
 
   return (
    <div className={styles.mainContainer}> 
-    <Card className="mx-auto max-w-sm w-[500px] h-[460px]">
+    <Card className="mx-auto max-w-sm w-[500px]">
       <CardHeader>
         <CardTitle className="text-xl mt-2">Sign In</CardTitle>
         <CardDescription>Enter your information to sign in</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
+      {/*
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input id="email" placeholder="abc@example.com" required />
@@ -57,9 +72,9 @@ export default function SignInPage() {
           <Button className="w-full" type="submit">
             Sign in
           </Button>
-        </div>
+        </div> */}
         <div className="space-y-2">
-          <Button className="w-full flex gap-2" variant="outline">
+          <Button className="w-full flex gap-2" variant="outline" onClick={handleSignInwithGoogle}>
            <FcGoogle className="w-5 h-5"/> 
            <p>Sign in with Google</p>
           </Button>

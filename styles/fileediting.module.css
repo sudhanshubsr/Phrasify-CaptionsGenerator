@@ -10,13 +10,11 @@
 }
 
 .videoContainer {
-    width: 100%;
-    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin-top: 2em;
+    width: 100%;
+    overflow: hidden;
 }
 
 .captionBox {
@@ -36,9 +34,45 @@
     height: 23em;
 }
 
+.textOverlay {
+    position: absolute;
+    width: min-content;
+    text-align: center;
+    padding: 2em;
+    width: 255px;
+    overflow: hidden;
+}
+
+
+.progressBar {
+    width: 100%;
+    height: 1em;
+    background-color: #f3f3f3;
+    border-radius: 20px;
+}
+
+.colorContainer {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin-top: 1em;
+    font: "Montserrat", sans-serif;
+    font-weight: 550;
+    font-size: 1em;
+    color: white;
+}
+
+.colorContainer div {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+}
+
 .buttonsDiv {
     display: flex;
     flex-direction: column;
+    align-items: center;
+
     /* justify-content: space-around; */
     height: 100%;
     padding: 1em;
@@ -77,11 +111,16 @@
     width: max-content;
     height: max-content;
     text-wrap: nowrap;
-
 }
 
 .captionGenerateButton:active {
     transform: scale(0.95);
+}
+
+.captionGenerateButton:disabled {
+    display: none;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
 .videoContainer video {

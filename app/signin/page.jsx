@@ -1,17 +1,13 @@
 'use client'
 
-import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import {signIn} from 'next-auth/react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { useUploadButtonContext } from "@/lib/appContext"
 import styles from '@styles/signinpage.module.css'
-import { useEffect } from "react"
-import { useSession } from "next-auth/react"
+import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from "next/navigation"
-import { useUploadButtonContext} from "@/lib/appContext"
+import { FaGithub } from "react-icons/fa"
+import { FcGoogle } from "react-icons/fc"
 export default function SignInPage() {
   const {data: session, status} = useSession();
   const router = useRouter(); 

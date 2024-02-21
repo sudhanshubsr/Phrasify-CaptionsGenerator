@@ -71,8 +71,7 @@ const generateCaptions = async() => {
   
     await ffmpeg.exec([
     '-i', filename,
-    '-preset', 'ultrafast',
-    '-t', '2',  
+    '-preset', 'ultrafast', 
     '-vf', `subtitles=captions.srt:fontsdir=/tmp:force_style='Fontname=Montserrat Bold,FontSize=40,MarginV=80,PrimaryColour=${rgbToffmepgColor(fontColor)},OutlineColour=${rgbToffmepgColor(outlineColor)},Outline=1'`,
     'output.mp4'
   ]);

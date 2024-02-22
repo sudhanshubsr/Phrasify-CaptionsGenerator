@@ -5,6 +5,7 @@ const FaqComponent = () => {
     <div className={styles.mainContainer}>
         <h1>WHAT'S DIFFERENT ABOUT PHRASIFY?</h1>
         <div className={styles.gridContainer}>
+            
             <div className={styles.cardContainer}>
                 <div className={styles.imageContainer}>
                     <img src='https://imagesprojects.s3.ap-south-1.amazonaws.com/phrasify/png6.webp' alt='icon'/>

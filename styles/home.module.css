@@ -9,3 +9,47 @@
 .uploadVideoButton {}
 
 /* Path: styles/plan.module.css */
+
+
+
+
+.videoSection{
+    text-align: center;
+    width: 100%;
+    background-color: var(--color-info-accent);
+    color: white;
+    font-size: 1.7rem;
+    font-weight: bolder;
+    padding: 2rem 0.5rem;
+    border-radius: 14px;
+    margin-top: 3.5rem;
+}
+
+.videoContainer{
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.videoContainer img{
+    width: 350px;
+    height: 350px;
+}
+
+
+
+@media (min-width: 769px){
+    .videoSection{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+    .headingContainer{
+        width: 40%;
+        padding: 0 1em 0 1em;
+        font-size: 1.6em;
+        font-weight: bold;
+    }
+}

@@ -15,14 +15,16 @@ export default function Home() {
       <HowToComponent />
       <FaqSection />
       
-      <div className="text-center w-full bg-[--color-info-accent] text-white text-[1.7rem] font-extrabold py-8 px-2 rounded-lg mt-14">
-      <div>
+      <div className={styles.videoSection}>
+      <div className={styles.headingContainer}>
       <h1>Easily add captions to your videos with Phrasify. No experience necessary.</h1>
       </div>
-      <div className="px-3 py-4 mt-2">
+      <div className={styles.videoContainer}>
       <img src="https://imagesprojects.s3.ap-south-1.amazonaws.com/phrasify/maingif.gif" className="rounded-xl" />
       </div>
       </div>
+
+
       <FaqComponent />
       </SmoothScrolling>
     </main>

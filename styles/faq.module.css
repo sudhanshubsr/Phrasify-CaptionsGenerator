@@ -48,3 +48,52 @@
 .imageContainer{
     width: 150px;
 }
+.QuestionsContainer{
+    padding: 0 1em 0 1em;
+}
+
+.cuteCatContainer{
+    display: none;
+}
+
+
+
+@media (min-width: 769px){
+
+    .desktopMainContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border: 2px solid black; */
+        padding: 2em;
+    }
+    .QuestionsContainer{
+        padding: 0 1em 0 1em;
+        width: 600px;
+        max-width: 700px;
+
+    }
+    .catAndQuestionsContainer{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+    .cuteCatContainer{
+        display: block;
+        width: 140px;
+        /* border: 2px solid black; */
+    }
+
+    /* What's different  about Phrasify Section */
+
+    .gridContainer{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: repeat(2,1fr);
+        width: 950px;
+    }
+
+
+}

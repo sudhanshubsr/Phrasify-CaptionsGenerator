@@ -1,12 +1,13 @@
 .mainContainer {
     min-height: 100vh;
-    background: var(--gradient-highlight-vertical);
+    background-image: url("https://imagesprojects.s3.ap-south-1.amazonaws.com/phrasify/image3.webp");
 
 }
 
 .transcribing {
     min-height: 100vh;
     /* background: var(--gradient-highlight-vertical); */
+    background-image: url("https://imagesprojects.s3.ap-south-1.amazonaws.com/phrasify/image3.webp");
 }
 
 .videoContainer {
@@ -90,7 +91,7 @@
     font-family: "Montserrat", sans-serif;
     font-size: 1em;
     font-weight: 550;
-    background: var(--gradient-highlight-vertical);
+    background-image: url("https://imagesprojects.s3.ap-south-1.amazonaws.com/phrasify/image3.webp");
 }
 
 .captionGenerateButton {
@@ -98,7 +99,6 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0 10px 20px rgba(124, 132, 252, 0.6), 0 20px 40px rgba(255, 77, 210, 0.8);
     display: flex;
     align-items: center;
     gap: 0.5em;
@@ -130,5 +130,54 @@
     border-radius: 20px;
     box-shadow: 1px 10px 40px rgba(0, 0, 0, 0.5);
 
+}
 
+
+.scrollArea{
+    height: 18rem;
+    width: 100%;
+    margin-left: 0.5rem;
+    border-radius: 10px;
+    padding: 0.25rem;
+    box-shadow: 1px 10px 40px rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--color-info-primary);
+    background-color: var(--color-info-primary);
+
+}
+
+
+@media (min-width: 769px) {
+    
+    .mainContainer{
+        display: flex;
+        /* border: 2px solid black; */
+        justify-content: center;
+        align-items: center;
+        gap: 10em;
+        background-image: url("https://imagesprojects.s3.ap-south-1.amazonaws.com/phrasify/image3.webp");
+        background-size: cover;
+    }
+
+    .videoComponentContainer{
+        order: 1;
+        /* border: 2px solid black; */
+    }
+    .captionsContainer{
+       order: -1;
+       /* border: 2px solid black; */
+
+    }
+    .scrollArea{
+        height: 40em;
+        width: 100%;
+    }
+
+    .videoContainer video {
+        width: 80%;
+        height: auto;
+        border-radius: 10px;
+        border-radius: 20px;
+        box-shadow: 1px 10px 40px rgba(0, 0, 0, 0.5);
+    
+    }
 }

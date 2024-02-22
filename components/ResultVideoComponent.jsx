@@ -89,14 +89,14 @@ function rgbToffmepgColor(rgb) {
 
 
   return (
-    <div className={`flex mt-8 justify-center relative w-[460px] ${styles.videoContainer}`}>
-  <video data-video={0} ref={videoRef} controls className={styles.video} />
-  {progress && progress > 1 && (
-    <div className={styles.textOverlay}>
-      <Progress value={progress} className={styles.progressBar} />
-      <h3 className="text-white text-xl">{parseInt(progress)}%</h3>
-    </div>
-  )}
+    <div className={`flex mt-8 justify-center relative w-[560px] ${styles.videoContainer}`}>
+    <video data-video={0} ref={videoRef} controls className={styles.video} />
+      {progress && progress > 1 && (
+        <div className={styles.textOverlay}>
+          <Progress value={progress} className={styles.progressBar} />
+          <h3 className="text-white text-xl">{parseInt(progress)}%</h3>
+        </div>
+      )}
     
     
     <div className={styles.buttonsDiv}>

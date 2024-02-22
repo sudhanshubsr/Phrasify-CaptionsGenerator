@@ -1,6 +1,8 @@
 import React from 'react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import TranscriptionItem from '@/components/TranscriptionItem'
+import styles from '@/styles/fileediting.module.css'
+
 const CaptionsComponent = ({transcriptionItems,setTranscriptionItems}) => {
 
 
@@ -13,13 +15,13 @@ const CaptionsComponent = ({transcriptionItems,setTranscriptionItems}) => {
   }
   return (
   <>
-    <div className="grid grid-cols-3 w-full sticky top-0 bg-[--color-info-primary] text-white p-2 rounded-md ml-2 mb-1">
+    <div className="grid grid-cols-3 w-full sticky top-0 bg-[--color-info-primary] text-white p-2 rounded-md ml-2 mb-1 mt-4">
         <div>From</div>
         <div>End</div>
         <div>Content</div>
       </div>
       
-    <ScrollArea className="h-72 w-full ml-2 rounded-md p-1 shadow-lg border-2 border-[--color-info-primary] bg-[--color-info-primary]">
+    <ScrollArea className={styles.scrollArea}>
     {transcriptionItems?.length > 0 &&  transcriptionItems.map((item, key) => (
        <div key={key}>
        <TranscriptionItem

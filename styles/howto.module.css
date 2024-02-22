@@ -1,4 +1,4 @@
-.mainContainer{
+.mainContainer {
     background: var(--gradient-highlight-horizontal);
     width: 100%;
     display: flex;
@@ -6,18 +6,27 @@
     align-items: center;
     justify-content: flex-start;
     gap: 1em;
-    padding: 5em 1em;
+    padding: 3em 1em;
     margin-top: 2em;
 }
 
-.mainContainer h1{
+.mainContainer h1 {
     font-size: 2.5em;
     font-weight: 700;
     color: white;
     text-align: center;
 }
 
-.sectionCard{
+.cardSectionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.sectionCard {
     display: flex;
     width: 70%;
     background-color: white;
@@ -26,17 +35,41 @@
     border-radius: 10px;
 }
 
-.cardRightSection{
+.cardRightSection {
     display: flex;
     flex-direction: column;
     gap: 0.2em;
 }
-.cardRightSection h2{
+
+.cardRightSection h2 {
     font-size: 1em;
     font-weight: 800;
     color: var(--color-info-primary);
 }
-.cardRightSection p{
+
+.cardRightSection p {
     font-size: 0.8em;
     color: var(--color-gray-700);
+}
+
+
+
+@media (min-width: 769px) {
+    .mainContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 4em;
+        /* border: 2px solid black; */
+    }
+
+    .cardSectionContainer {
+        display: flex;
+        flex-direction: row;
+        gap: 2em;
+        max-width: 900px;
+    }
+
+    
 }

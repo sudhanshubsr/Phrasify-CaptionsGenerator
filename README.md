@@ -1,5 +1,5 @@
 <div align="center">
-  <h1 align="center">Phrasifyk</h1>
+  <h1 align="center">Phrasify</h1>
   <h3>Best Way to add Captions to your Videos</h3>
 
 </div>

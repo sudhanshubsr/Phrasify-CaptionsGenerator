@@ -25,7 +25,7 @@ With Phrasify, users can effortlessly transcribe audio content and generate accu
 
 
 ## Demo 
-![Phrasify Welcome GIF](public/phrasify-demo.wmv)
+![Phrasify Welcome GIF](public/phrasify-demo.gif)
 
 
 ## Tech Stack

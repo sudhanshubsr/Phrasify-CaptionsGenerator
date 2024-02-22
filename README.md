@@ -94,37 +94,6 @@ yarn run dev
 
 Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-
-To prepare the Tinybird database, follow these steps:
-
-0. We use `pipenv` to manage my Python dependencies. If you don't have it installed, you can install it using the following command:
-    ```sh
-    pkgx pipenv
-    ```
-1. Download the Tinybird CLI from [here](https://www.tinybird.co/docs/cli.html) and install it on your system.
-2. After authenticating with the Tinybird CLI, navigate to the `lib/tinybird` directory:
-    ```sh
-    cd lib/tinybird
-    ```
-3. Push the necessary datasources using the following command:
-    ```sh
-    tb push datasources/*
-    tb push endpoints/get_*
-    ```
-4. Don't forget to set the `TINYBIRD_TOKEN` with the appropriate rights in your `.env` file.
-
-
-#### Updating Tinybird
-
-```sh
-pipenv shell
-## start: pkgx-specific
-cd ..
-cd papermark
-## end: pkgx-specific
-pipenv update tinybird-cli
-```
-
 ## Deploy your own
 
 All you need is a Vercel account and access to Vercel Storage (_Blob_ and _Postgres_). Click the
@@ -141,7 +110,6 @@ If you'd like to contribute, please fork the repository and make changes as you'
 
 ## Inspiration
 
-...and friends
 - [Kapwing](https://www.kapwing.com/subtitles) - Subtitles Generator
 
 

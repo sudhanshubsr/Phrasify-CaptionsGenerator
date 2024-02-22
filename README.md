@@ -10,7 +10,7 @@
 
 <div align="center">
     <img src="./public/phrasifyCanvas.png">
-<div>
+</div>
 <br/>
 <br/>
 

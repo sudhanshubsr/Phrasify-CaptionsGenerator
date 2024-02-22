@@ -145,3 +145,12 @@ If you'd like to contribute, please fork the repository and make changes as you'
 - [Kapwing](https://www.kapwing.com/subtitles) - Subtitles Generator
 
 
+## Open Source
+
+Phrasify is an open-source project, and you are welcome to use, modify, and distribute the code. However, it does not come with a specific license.
+
+Feel free to contribute, share, or build upon this project. We appreciate any contributions from the community.
+
+If you have questions or suggestions, please open an issue or reach out to us.
+
+Happy coding!

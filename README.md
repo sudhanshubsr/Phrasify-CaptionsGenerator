@@ -8,6 +8,9 @@
   <a href="https://phrasify.sudhanshu.site">Phrasify.com</a>
 </div>
 
+<div align="center">
+    <img src="./public/phrasifyCanvas.png">
+<div>
 <br/>
 <br/>
 

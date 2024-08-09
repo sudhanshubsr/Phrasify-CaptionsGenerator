@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(req) {
   try {
-    const formData = await req.formData();
-    const file = formData.get('file');
-    const { name, type } = file;
+    const {name, type} = await req.json();
+    console.log(name, type);
 
+    
     const id = uuidv4();
     const ext = name.split('.').pop();
     const newName = `${id}.${ext}`;

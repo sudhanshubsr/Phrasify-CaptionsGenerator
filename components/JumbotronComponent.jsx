@@ -45,13 +45,17 @@ const JumbotronComponent = () => {
     const handleUpload = async (ev) => {
         ev.preventDefault();
         const file = ev.target.files[0];
+        const metadata = {
+            name: file.name,
+            type: file.type,
+        }
         if (file) {
             const formData = new FormData();
-            formData.append('file', file);
+            formData.append('file', metadata);
 
-            const {data} = await axios.post('/api/upload', formData, {
+            const {data} = await axios.post('/api/upload', metadata, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'application/json'
                 },
                 onUploadProgress: (progressEvent) => {
                     const { loaded, total } = progressEvent;

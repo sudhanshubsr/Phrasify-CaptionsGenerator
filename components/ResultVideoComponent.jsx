@@ -26,14 +26,14 @@ const ResultVideoComponent = ({filename, transcriptionItems}) => {
     load();
   },[])
 
-  
+
   const load = async () => {
     const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd'
     const ffmpeg = ffmpegRef.current;
 
-    ffmpeg.on('log', ({ message }) => {
-      console.log(message);
-    });
+    // ffmpeg.on('log', ({ message }) => {
+      // console.log(message);
+    // });
 
     await ffmpeg.load({
         coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
@@ -68,20 +68,20 @@ const generateCaptions = async() => {
       }
 
   });
-  
+
     await ffmpeg.exec([
     '-i', filename,
-    '-preset', 'ultrafast', 
+    '-preset', 'ultrafast',
     '-vf', `subtitles=captions.srt:fontsdir=/tmp:force_style='Fontname=Montserrat Bold,FontSize=40,MarginV=80,PrimaryColour=${rgbToffmepgColor(fontColor)},OutlineColour=${rgbToffmepgColor(outlineColor)},Outline=1'`,
     'output.mp4'
   ]);
-  
+
   const data = await ffmpeg.readFile('output.mp4');
   videoRef.current.src =
       URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'}));
   setProgress(1);
 }
- 
+
 function rgbToffmepgColor(rgb) {
   const bgr = rgb.slice(5,7) + rgb.slice(3,5) + rgb.slice(1,3);
   return '&H' + bgr + '&';
@@ -97,14 +97,14 @@ function rgbToffmepgColor(rgb) {
           <h3 className="text-white text-xl">{parseInt(progress)}%</h3>
         </div>
       )}
-    
-    
+
+
     <div className={styles.buttonsDiv}>
     <div>
       <button
       className={styles.captionGenerateButton}
       onClick={generateCaptions}
-      disabled={progress>1} 
+      disabled={progress>1}
       >
         <SparklesIcon className='h-7 w-7'/>
         Generate Caption
@@ -120,9 +120,9 @@ function rgbToffmepgColor(rgb) {
         <input type='color' value={outlineColor} onChange={(e) => setOutlineColor(e.target.value)} />
       </div>
     </div>
-    
+
   </div>
-  
+
   </div>
   )
 }

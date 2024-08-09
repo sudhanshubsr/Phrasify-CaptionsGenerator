@@ -76,7 +76,7 @@ const JumbotronComponent = () => {
                         "Content-Type": file.type
                     }
                 })
-                console.log(uploadResponse)
+
                 if(uploadResponse.status === 200){
                     // console.log(`File uploaded successfully to ${newName}`)
                     setNewFileName(newName);

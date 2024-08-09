@@ -1,35 +1,49 @@
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { v4 as uuidv4 } from 'uuid';
 
-
-export async function POST(req){
-  
+export async function POST(req) {
+  try {
     const formData = await req.formData();
     const file = formData.get('file');
-    const {name, type} = file;
-    const data = await file.arrayBuffer();
+    const { name, type } = file;
 
-  const id = uuidv4();
-  const ext = name.split(".").slice(-1);
-  const newName = `${id}.${ext}`;
+    const id = uuidv4();
+    const ext = name.split('.').pop();
+    const newName = `${id}.${ext}`;
 
-  const client = new S3Client({
-    region: process.env.AWS_REGION,
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    },
-  });
+    const client = new S3Client({
+      region: process.env.AWS_REGION,
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      },
+    });
 
-  const uploadCommand = new PutObjectCommand({
-    Bucket: process.env.AWS_BUCKET_NAME,
-    Key: newName,
-    Body: data,
-    ACL: "public-read",
-    ContentType: type,
-  });
+    const command = new PutObjectCommand({
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: newName,
+      ACL: 'public-read',
+      ContentType: type,
+    });
 
-    const res = await client.send(uploadCommand);
-
-    return Response.json({newName, id, ext});
+    // Generate a pre-signed URL with an expiration time
+    const signedUrl = await getSignedUrl(client, command, { expiresIn: 60 }); // 60 seconds expiration
+    // Return the signed URL to the client
+    return new Response(
+      JSON.stringify({ signedUrl, newName }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ message: `Internal Server Error in Uploading File: ${error.message}` }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+  }
 }

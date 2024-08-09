@@ -1,11 +1,11 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { Progress } from "@/components/ui/progress";
 import { AnimatePresence, motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { FaUpload } from "react-icons/fa6";
 import PulseLoader from 'react-spinners/PulseLoader';
-import { Progress } from "@/components/ui/progress"
 
 
 import SparklesIcon from '@/icons/sparklesIcon';
@@ -19,6 +19,7 @@ const JumbotronComponent = () => {
     const { data: session } = useSession();
 
     const [isScrolling, setIsScrolling] = useState(false);
+
 
     const {
         buttonText, setButtonText,
@@ -44,12 +45,11 @@ const JumbotronComponent = () => {
     const handleUpload = async (ev) => {
         ev.preventDefault();
         const file = ev.target.files[0];
-        console.log(file);
         if (file) {
             const formData = new FormData();
             formData.append('file', file);
 
-            const res = await axios.post('/api/upload', formData, {
+            const {data} = await axios.post('/api/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
@@ -63,15 +63,30 @@ const JumbotronComponent = () => {
                     })();
                 }
             });
+            const {signedUrl, newName} = data;
 
-            if (res) {
-                setNewFileName(res.data.newName);
-                setIsUploading(false);
-                setButtonText('Uploaded');
-                await wait(1500);
-                setProgress(0);
-                setIsUploading(false);
-                setButtonText('Transcribe Video');
+            if (signedUrl) {
+
+                const uploadResponse = await axios.put(signedUrl, file, {
+                    headers: {
+                        "Content-Type": file.type
+                    }
+                })
+                console.log(uploadResponse)
+                if(uploadResponse.status === 200){
+                    // console.log(`File uploaded successfully to ${newName}`)
+                    setNewFileName(newName);
+                    setIsUploading(false);
+                    setButtonText('Uploaded');
+                    await wait(1500);
+                    setProgress(0);
+                    setIsUploading(false);
+                    setButtonText('Transcribe Video');
+                }else{
+                    console.log(`Failed to upload file to S3`)
+                }
+
+
             }
         }
     }

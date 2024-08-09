@@ -44,6 +44,7 @@ const JumbotronComponent = () => {
     const handleUpload = async (ev) => {
         ev.preventDefault();
         const file = ev.target.files[0];
+        console.log(file);
         if (file) {
             const formData = new FormData();
             formData.append('file', file);
@@ -125,7 +126,7 @@ const JumbotronComponent = () => {
                         )}
                         {!isUploading && (
                             <div className={styles.transcribeButtonContainer}>
-                                {!transcribebuttonClicked && 
+                                {!transcribebuttonClicked &&
                                 <div>
                                     <SparklesIcon className='h-5 w-5 ' />
                                 </div>
@@ -137,7 +138,7 @@ const JumbotronComponent = () => {
                                 </div>
                             </div>
                         )}
-                        
+
                     </div>
                     <AnimatePresence>
                         {isScrolling ? (

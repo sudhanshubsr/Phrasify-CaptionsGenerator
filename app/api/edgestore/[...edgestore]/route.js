@@ -4,7 +4,7 @@ import { AWSProvider } from "@edgestore/server/providers/aws";
 const es = initEdgeStore.create();
 
 const edgeStoreRouter = es.router({
-  phrasifyVideos: es.fileBucket(),
+  captions_generator_phrasify: es.fileBucket(),
 });
 
 const handler = createEdgeStoreNextHandler({
@@ -15,7 +15,7 @@ const handler = createEdgeStoreNextHandler({
     bucketName: process.env.AWS_BUCKET_NAME,
     region: process.env.AWS_REGION,
     ACL: "public-read",
-    
+
   }),
 });
 

@@ -5,7 +5,7 @@
 </div>
 
 <div align="center">
-  <a href="https://phrasify.sudhanshu.site">Phrasify.com</a>
+  <a href="https://phrasify.sudhanshu.app">Phrasify</a>
 </div>
 
 <div align="center">
